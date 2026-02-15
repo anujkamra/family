@@ -29,8 +29,9 @@
             left: 0;
             width: 100%;
             height: 100%;
+            /* Make sure your image is named 'background.jpg' and is in the same folder */
             background: url('background.jpg') no-repeat center center/cover;
-            filter: blur(8px) brightness(0.9); /* Blurs the background for focus on text */
+            filter: blur(8px) brightness(0.9);
             z-index: -1;
             transition: filter 1s ease;
         }
@@ -54,7 +55,6 @@
             text-align: center;
             position: relative;
             border: 2px solid var(--accent-color);
-            /* Candle flicker effect on the box */
             animation: flicker 4s infinite alternate;
         }
 
@@ -168,15 +168,18 @@
             text-transform: uppercase;
         }
 
-        .coordinates {
+        .location-reveal {
             font-family: 'Cinzel', serif;
             color: var(--primary-color);
             letter-spacing: 2px;
-            margin-top: 20px;
+            margin-top: 30px;
             font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            border-top: 1px solid var(--accent-color);
+            padding-top: 20px;
         }
         
-        /* Decorative Elements */
         .rose-icon {
             font-size: 2rem;
             color: var(--primary-color);
@@ -208,7 +211,7 @@
             </div>
 
             <div id="reveal-screen" class="hidden">
-                <div class="rose-icon">🕯️</div>
+                <div class="rose-icon">✨</div>
                 <h1>Where Shadows Dance</h1>
                 
                 <div class="countdown">
@@ -219,16 +222,16 @@
                 </div>
 
                 <p class="poem">
-                    Follow the compass north and west,<br>
-                    To a Nordic hall for our next quest.<br>
-                    Where two thousand flames will gently sway,<br>
-                    Turning the night as bright as day.<br><br>
-                    Four digits hold the key to the night,<br>
-                    Where music waits in flickering light.
+                    A golden haze, a quiet space,<br>
+                    Time slows down to match our pace.<br>
+                    In softest light, the air will hum,<br>
+                    With melodies of what’s to come.<br><br>
+                    Wood and wire will start to sigh,<br>
+                    Playing a love that cannot die.
                 </p>
 
-                <div class="coordinates">
-                    47.6685° N, 122.3912° W
+                <div class="location-reveal">
+                    Location Unlocks: Feb 22, 5:00 PM
                 </div>
             </div>
 
@@ -240,8 +243,6 @@
         const SECRET_CODE = "2426";
 
         // The Target Date: Feb 22, 2026, 8:45 PM PST
-        // ISO Format: YYYY-MM-DDTHH:mm:ss
-        // -08:00 indicates PST
         const TARGET_DATE = new Date("2026-02-22T20:45:00-08:00").getTime();
 
         function checkCode() {
@@ -256,7 +257,7 @@
                 errorMsg.style.display = 'none';
                 lockScreen.style.display = 'none';
                 
-                // Clear the blur on background slightly for the reveal
+                // Clear the blur slightly for the reveal
                 bgImage.style.filter = "blur(3px) brightness(1.0)";
                 
                 revealScreen.classList.remove('hidden');
@@ -266,7 +267,6 @@
                 startCountdown();
             } else {
                 errorMsg.style.display = 'block';
-                // Shake animation logic could go here
             }
         }
 
