@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Loom of Time</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8b4a58; /* Dusty Rose */
+            --accent-color: #eebbba; /* Soft Pink */
+            --text-color: #4a2c35;
+            --candle-glow: 255, 200, 150;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Lato', sans-serif;
+            background-color: #fcefee;
+        }
+
+        /* Background Image Setup */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('background.jpg') no-repeat center center/cover;
+            filter: blur(8px) brightness(0.9); /* Blurs the background for focus on text */
+            z-index: -1;
+            transition: filter 1s ease;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        /* The Card Styling */
+        .card {
+            background: rgba(255, 250, 245, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(139, 74, 88, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            border: 2px solid var(--accent-color);
+            /* Candle flicker effect on the box */
+            animation: flicker 4s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { box-shadow: 0 0 30px rgba(255, 200, 150, 0.4); }
+            50% { box-shadow: 0 0 45px rgba(255, 220, 180, 0.6); }
+            100% { box-shadow: 0 0 30px rgba(255, 200, 150, 0.4); }
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            color: var(--primary-color);
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
+
+        p.poem {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 30px;
+        }
+
+        /* Input and Button Styling */
+        input[type="number"] {
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            width: 60%;
+            text-align: center;
+            outline: none;
+            color: var(--primary-color);
+            background: #fff;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--primary-color);
+        }
+
+        button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #6d3a45;
+            transform: scale(1.05);
+        }
+
+        .error {
+            color: #d9534f;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        /* Hidden Sections */
+        .hidden {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+
+        .visible {
+            display: block;
+            animation: fadeIn 1.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Countdown Styling */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .time-box {
+            background: var(--primary-color);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            min-width: 60px;
+        }
+
+        .number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .coordinates {
+            font-family: 'Cinzel', serif;
+            color: var(--primary-color);
+            letter-spacing: 2px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+        /* Decorative Elements */
+        .rose-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-image"></div>
+
+    <div class="container">
+        <div class="card">
+            
+            <div id="lock-screen">
+                <div class="rose-icon">🌹</div>
+                <h1>The Keeper of the Gate</h1>
+                <p class="poem">
+                    You found the path, you scanned the sign,<br>
+                    Now prove you know our timeline.<br><br>
+                    The years of "I do,"<br>
+                    Plus the years since "I will."<br>
+                    Enter the digits where time stands still.
+                </p>
+                <input type="number" id="code-input" placeholder="Enter 4 Digits">
+                <button onclick="checkCode()">Unlock</button>
+                <div id="error-msg" class="error">The timeline is incorrect. Try again.</div>
+            </div>
+
+            <div id="reveal-screen" class="hidden">
+                <div class="rose-icon">🕯️</div>
+                <h1>Where Shadows Dance</h1>
+                
+                <div class="countdown">
+                    <div class="time-box"><span id="days" class="number">0</span><span class="label">Days</span></div>
+                    <div class="time-box"><span id="hours" class="number">0</span><span class="label">Hours</span></div>
+                    <div class="time-box"><span id="minutes" class="number">0</span><span class="label">Mins</span></div>
+                    <div class="time-box"><span id="seconds" class="number">0</span><span class="label">Secs</span></div>
+                </div>
+
+                <p class="poem">
+                    Follow the compass north and west,<br>
+                    To a Nordic hall for our next quest.<br>
+                    Where two thousand flames will gently sway,<br>
+                    Turning the night as bright as day.<br><br>
+                    Four digits hold the key to the night,<br>
+                    Where music waits in flickering light.
+                </p>
+
+                <div class="coordinates">
+                    47.6685° N, 122.3912° W
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // The Secret Code
+        const SECRET_CODE = "2426";
+
+        // The Target Date: Feb 22, 2026, 8:45 PM PST
+        // ISO Format: YYYY-MM-DDTHH:mm:ss
+        // -08:00 indicates PST
+        const TARGET_DATE = new Date("2026-02-22T20:45:00-08:00").getTime();
+
+        function checkCode() {
+            const input = document.getElementById('code-input').value;
+            const errorMsg = document.getElementById('error-msg');
+            const lockScreen = document.getElementById('lock-screen');
+            const revealScreen = document.getElementById('reveal-screen');
+            const bgImage = document.querySelector('.bg-image');
+
+            if (input === SECRET_CODE) {
+                // Success Transition
+                errorMsg.style.display = 'none';
+                lockScreen.style.display = 'none';
+                
+                // Clear the blur on background slightly for the reveal
+                bgImage.style.filter = "blur(3px) brightness(1.0)";
+                
+                revealScreen.classList.remove('hidden');
+                revealScreen.classList.add('visible');
+                
+                // Start the countdown
+                startCountdown();
+            } else {
+                errorMsg.style.display = 'block';
+                // Shake animation logic could go here
+            }
+        }
+
+        function startCountdown() {
+            const timer = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = TARGET_DATE - now;
+
+                if (distance < 0) {
+                    clearInterval(timer);
+                    document.getElementById("days").innerHTML = "0";
+                    document.getElementById("hours").innerHTML = "0";
+                    document.getElementById("minutes").innerHTML = "0";
+                    document.getElementById("seconds").innerHTML = "0";
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerHTML = days;
+                document.getElementById("hours").innerHTML = hours;
+                document.getElementById("minutes").innerHTML = minutes;
+                document.getElementById("seconds").innerHTML = seconds;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
